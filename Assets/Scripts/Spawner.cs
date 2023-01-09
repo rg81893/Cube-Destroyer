@@ -8,7 +8,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] GameObject objectToSpawn;
     [SerializeField] float spawnSpeed;
     [SerializeField] float distanceSpawn;
-    [SerializeField] float rayonPerimetre;
+    [SerializeField] float cubeSpeed;
     float time = 0f;
     // Start is called before the first frame update
     void Start()
@@ -26,7 +26,7 @@ public class Spawner : MonoBehaviour
         {
             Vector3 worldPosition = ScreenPositionIntoWorld(
               // example screen center:
-              new Vector2(Random.Range(0, Screen.width / 2), Random.Range(0, Screen.height / 2)),
+              new Vector2(Random.Range(0, Screen.width), Random.Range(0, Screen.height)),
               // distance into the world from the screen:
               10.0f
             );
@@ -35,6 +35,7 @@ public class Spawner : MonoBehaviour
             SpawnRandomObject(objectPosition);
             time = 0f;
         }
+         
     }
     public static Vector3 ScreenPositionIntoWorld(Vector2 screenPosition, float distance)
     {
@@ -45,6 +46,7 @@ public class Spawner : MonoBehaviour
     {
         GameObject objectNew = Instantiate(objectToSpawn, new Vector3(objectPosition.x, objectPosition.y, distanceSpawn), Quaternion.identity) as GameObject;
         objectNew.GetComponent<Renderer>().material.color = Random.ColorHSV();
-
+        //objectNew.GetComponent<Rigidbody>().velocity = cubeSpeed * GetComponent<Rigidbody>().velocity.normalized;
+        objectNew.GetComponent<Rigidbody>().AddForce(-transform.forward * cubeSpeed, ForceMode.Impulse);
     }
 }
