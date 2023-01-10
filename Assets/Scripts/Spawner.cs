@@ -24,14 +24,19 @@ public class Spawner : MonoBehaviour
         //perimetre.transform.localScale = new Vector3(rayonPerimetre, 0.001f, rayonPerimetre);
         if (time >= 1 / spawnSpeed)
         {
-            Vector3 worldPosition = ScreenPositionIntoWorld(
-              // example screen center:
-              new Vector2(Random.Range(0, Screen.width), Random.Range(0, Screen.height)),
-              // distance into the world from the screen:
-              10.0f
-            );
+            float x = Random.Range(0.05f, 0.95f);
+            float y = Random.Range(0.05f, 0.95f);
+            Vector3 pos = new Vector3(x, y, 10.0f);
+            pos = Camera.main.ViewportToWorldPoint(pos);
+
+            //Vector3 worldPosition = ScreenPositionIntoWorld(
+            //  // example screen center:
+            //  new Vector2(x, y),
+            //  // distance into the world from the screen:
+            //  distanceSpawn
+            //);
             //Vector3 localPosition = Random.insideUnitSphere * rayonPerimetre;
-            Vector3 objectPosition = transform.TransformPoint(worldPosition);
+            Vector3 objectPosition = transform.TransformPoint(pos);
             SpawnRandomObject(objectPosition);
             time = 0f;
         }
