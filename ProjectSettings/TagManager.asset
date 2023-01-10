@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - cube1
+  - cube2
+  - cube3
+  - cube4
+  - cube5
   layers:
   - Default
   - TransparentFX
