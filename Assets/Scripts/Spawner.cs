@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Spawner : MonoBehaviour
 {
@@ -39,6 +41,17 @@ public class Spawner : MonoBehaviour
             Vector3 objectPosition = transform.TransformPoint(pos);
             SpawnRandomObject(objectPosition);
             time = 0f;
+        }
+
+        if(Input.GetMouseButtonDown(0)) 
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
+            {
+                GameObject target = hit.transform.gameObject;
+                Destroy(target);
+            }
         }
          
     }
